@@ -7,11 +7,11 @@ export const getRepositorios = async (req: Request, res: Response) => {
     const username = 'google';
     const perPage = 10;
 
-    const response: AxiosResponse<any> = await axios.get(
+    const response: AxiosResponse<{ items: GitHubRepo[] }> = await axios.get(
       `https://api.github.com/search/repositories?q=user:${username}&per_page=${perPage}`
     );
 
-    const repos: GitHubRepo[] = response.data.items.map((repo: any) => ({
+    const repos: GitHubRepo[] = response.data.items.map((repo: GitHubRepo) => ({
       name: repo.name,
       description: repo.description,
       stargazers_count: repo.stargazers_count
